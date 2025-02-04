@@ -37,6 +37,7 @@ src/**/*.js
 src/**/*.map
 scripts/**/*.js
 scripts/**/*.map
+.angular
 
 # Typing #
 /src/typings/tsd/
