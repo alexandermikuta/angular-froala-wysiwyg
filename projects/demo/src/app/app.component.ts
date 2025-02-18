@@ -25,6 +25,7 @@ export class AppComponent implements OnInit {
 
   ngOnInit () {
     FroalaEditor.DefineIcon('alert', { SVG_KEY: 'help' });
+    // INFO: can be added to toolbar-buttons
     FroalaEditor.RegisterCommand('alert', {
       title: 'Custom-Button-Test',
       focus: false,
@@ -35,6 +36,23 @@ export class AppComponent implements OnInit {
         alert('Here could be some custom functionality...');
       }
     });
+    FroalaEditor.TOOLBAR_BUTTONS = {
+      'moreText': {
+        'buttons': ['bold', 'italic', 'underline', 'strikeThrough', 'subscript', 'superscript', 'fontFamily', 'fontSize', 'textColor', 'backgroundColor', 'inlineStyle', 'clearFormatting']
+      },
+      'moreParagraph': {
+        'buttons': ['alignLeft', 'alignCenter', 'formatOLSimple', 'alignRight', 'alignJustify', 'formatOL', 'formatUL', 'paragraphFormat', 'lineHeight', 'outdent', 'indent']
+      },
+      'moreRich': {
+        'buttons': ['insertLink', 'insertImage', 'insertTable', 'fontAwesome', 'specialCharacters', 'embedly', 'insertHR'],
+        'buttonsVisible': 5
+      },
+      'moreMisc': {
+        'buttons': ['undo', 'redo', 'fullscreen', 'spellChecker', 'html', 'help'],
+        'align': 'right',
+        'buttonsVisible': 5
+      }
+    };
   }
 
   public refreshHTML() {
@@ -47,20 +65,6 @@ export class AppComponent implements OnInit {
     codeViewKeepActiveButtons: ['selectAll'],
     angularIgnoreAttrs: ['style', 'ng-reflect-froala-editor', 'ng-reflect-froala-model'],
     immediateAngularModelUpdate: true,
-    toolbarButtons: {
-      'moreText': {
-        'buttons': ['bold', 'italic', 'underline', 'strikeThrough', 'subscript', 'superscript', 'fontFamily', 'fontSize', 'textColor', 'backgroundColor', 'inlineClass', 'inlineStyle', 'clearFormatting']
-      },
-      'moreParagraph': {
-        'buttons': ['alignLeft', 'alignCenter', 'formatOLSimple', 'alignRight', 'alignJustify', 'formatOL', 'formatUL', 'paragraphFormat', 'paragraphStyle', 'lineHeight', 'outdent', 'indent', 'quote']
-      },
-      'moreRich': {
-        'buttons': ['insertLink', 'insertImage', 'insertVideo', 'insertTable', 'emoticons', 'fontAwesome', 'specialCharacters', 'embedly', 'insertFile', 'insertHR', 'uploadFile']
-      },
-      'moreMisc': {
-        'buttons': ['undo', 'redo', 'fullscreen', 'print', 'getPDF', 'spellChecker', 'selectAll', 'html', 'help', 'alert']
-      }
-    },
     events: {
       initialized: (e:any) => {
         this.editor = e.getEditor();
@@ -68,7 +72,24 @@ export class AppComponent implements OnInit {
         this.editor.events.trigger('contentChanged', [], true);
       },
       'codeView.update': this.refreshHTML(),
-      contentChanged: this.refreshHTML()
+      contentChanged: this.refreshHTML(),
+      "image.beforeUpload": function(files) {
+      var editor = this;
+       if (files.length) {
+         // Create a File Reader.
+         var reader = new FileReader();
+         // Set the reader to insert images when they are loaded.
+         reader.onload = function(e) {
+           var result = e.target.result;
+           editor.image.insert(result, null, null, editor.image.get());
+         };
+         // Read image as base64.
+         reader.readAsDataURL(files[0]);
+       }
+       editor.popups.hideAll();
+       // Stop default upload chain.
+       return false;
+      }
     },
     attribution:false,
   }
