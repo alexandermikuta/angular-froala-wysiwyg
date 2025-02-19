@@ -67,6 +67,7 @@ export class AppComponent implements OnInit {
     immediateAngularModelUpdate: true,
     tableCellStyles: {},
     tableStyles: {},
+    quickInsertEnabled: false,
     events: {
       initialized: (e:any) => {
         this.editor = e.getEditor();
