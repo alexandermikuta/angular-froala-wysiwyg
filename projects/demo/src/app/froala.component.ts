@@ -1,4 +1,4 @@
-import { Component, Input, Output, forwardRef } from '@angular/core';
+import { Component, forwardRef } from '@angular/core';
 import {ControlValueAccessor, NG_VALUE_ACCESSOR} from "@angular/forms";
 
 @Component({
@@ -22,15 +22,12 @@ export class FroalaComponent implements ControlValueAccessor {
 
   }
 
-  
   public options: Object = {
     charCounterCount: false,
     toolbarButtons: ['bold', 'italic', 'underline', 'strikeThrough', 'subscript', 'superscript', 'fontFamily', 'fontSize', 'textColor', 'backgroundColor', 'inlineClass', 'inlineStyle', 'clearFormatting'],
     apiKey: '',
     username: '',
-    events: {
-      
-    },
+    events: {},
     key: '',
     editInPopup: false,
     update: undefined,

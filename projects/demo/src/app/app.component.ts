@@ -65,6 +65,8 @@ export class AppComponent implements OnInit {
     codeViewKeepActiveButtons: ['selectAll'],
     angularIgnoreAttrs: ['style', 'ng-reflect-froala-editor', 'ng-reflect-froala-model'],
     immediateAngularModelUpdate: true,
+    tableCellStyles: {},
+    tableStyles: {},
     events: {
       initialized: (e:any) => {
         this.editor = e.getEditor();
