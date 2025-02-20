@@ -41,7 +41,8 @@ export class AppComponent implements OnInit {
         'buttons': ['bold', 'italic', 'underline', 'strikeThrough', 'subscript', 'superscript', 'fontFamily', 'fontSize', 'textColor', 'backgroundColor', 'inlineStyle', 'clearFormatting']
       },
       'moreParagraph': {
-        'buttons': ['alignLeft', 'alignCenter', 'formatOLSimple', 'alignRight', 'alignJustify', 'formatOL', 'formatUL', 'paragraphFormat', 'lineHeight', 'outdent', 'indent']
+        'buttons': ['alignLeft', 'alignCenter', 'alignRight', 'alignJustify', 'formatOL', 'formatUL', 'paragraphFormat', 'lineHeight', 'outdent', 'indent'],
+        'buttonsVisible': 10
       },
       'moreRich': {
         'buttons': ['insertLink', 'insertImage', 'insertTable', 'fontAwesome', 'specialCharacters', 'embedly', 'insertHR'],
@@ -79,9 +80,12 @@ export class AppComponent implements OnInit {
     immediateAngularModelUpdate: true,
     tableCellStyles: {},
     tableStyles: {},
+    trackChangesEnabled:true,
+    showChangesEnabled:false,
     wordPasteKeepFormatting: true,
     wordPasteModal: false,
     quickInsertEnabled: false,
+    listAdvancedTypes: true,
     events: {
       initialized: (e:any) => {
         this.editor = e.getEditor();
