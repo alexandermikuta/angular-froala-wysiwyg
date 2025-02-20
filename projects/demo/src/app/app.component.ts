@@ -73,6 +73,7 @@ export class AppComponent implements OnInit {
   }
 
   public imgOptions: Object = {
+    pluginsEnabled: ['align','charCounter','codeBeautifier','codeView','colors','draggable','embedly','entities','fontAwesome','fontFamily','fontSize','fullscreen','image','imageTUI','imageManager','inlineClass','lineBreaker','lineHeight','link','lists','paragraphFormat','quickInsert','save','table','url','wordPaste'],
     codeViewKeepActiveButtons: ['selectAll'],
     angularIgnoreAttrs: ['style', 'ng-reflect-froala-editor', 'ng-reflect-froala-model'],
     immediateAngularModelUpdate: true,
