@@ -11,7 +11,7 @@ import FroalaEditor from 'froala-editor';
     <div class="sample">
       <h2>Froala</h2>
       <div id="sample2" [froalaEditor]="imgOptions" [(froalaModel)]="content" (froalaModelChange)="refreshHTML();"></div>
-      <h4>HTML Output:</h4>
+      <h4>HTML Output: <button id="copy" (click)="updateClipboard(htmlOutput)">Copy to Clipboard</button></h4>
       <pre id="eg-previewer" class="prettyprint linenums:1">{{ htmlOutput }}</pre>
     </div>
   `,
@@ -55,6 +55,17 @@ export class AppComponent implements OnInit {
     };
   }
 
+  public updateClipboard(newClip) {
+    navigator.clipboard.writeText(newClip).then(
+      () => {
+        /* clipboard successfully set */
+      },
+      () => {
+        /* clipboard write failed */
+      },
+    );
+  }
+
   public refreshHTML() {
     if(this.editor) {
       this.htmlOutput = this.editor.html.get().replace('<p data-f-id="pbf" style="text-align: center; font-size: 14px; margin-top: 30px; opacity: 0.65; font-family: sans-serif;">Powered by <a href="https://www.froala.com/wysiwyg-editor?pb=1" title="Froala Editor">Froala Editor</a></p>','');
@@ -67,6 +78,11 @@ export class AppComponent implements OnInit {
     immediateAngularModelUpdate: true,
     tableCellStyles: {},
     tableStyles: {},
+    height: '400',
+    heightMax: '1200',
+    heightMin: '200',
+    wordPasteKeepFormatting: true,
+    wordPasteModal: false,
     quickInsertEnabled: false,
     events: {
       initialized: (e:any) => {
